@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-                $table->string('nombre');
+            $table->string('nombre');
             $table->string('apellidos');
-            $table->foreignId('id_rol')->nullable()->constrained('roles')->onDelete('set null');
+            $table->unsignedBigInteger('id_rol')->nullable();
             $table->string('email')->unique();
             $table->string('telefono');
-            $table->foreignId('id_horario')->nullable()->constrained('horarios')->onDelete('set null');
-            $table->foreignId('id_workplace')->nullable()->constrained('workplaces')->onDelete('set null');
-            $table->foreignId('id_modalidad')->nullable()->constrained('modalidades')->onDelete('set null');
-            $table->foreignId('id_departamento')->nullable()->constrained('departamentos')->onDelete('set null');
+            $table->unsignedBigInteger('id_horario')->nullable();
+            $table->unsignedBigInteger('id_workplace')->nullable();
+            $table->unsignedBigInteger('id_modalidad')->nullable();
+            $table->unsignedBigInteger('id_departamento')->nullable();
             $table->boolean('is_presente')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
