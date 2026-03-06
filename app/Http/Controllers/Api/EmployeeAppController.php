@@ -214,6 +214,7 @@ class EmployeeAppController extends Controller
                 'nombre' => trim($user->nombre . ' ' . $user->apellidos),
                 'email' => $user->email,
                 'telefono' => $user->telefono,
+                'foto_perfil_url' => $user->foto_perfil_url,
                 'rol' => $user->rol?->nombre,
                 'departamento' => $user->departamento?->nombre,
                 'workplace' => $user->workplace?->nombre,

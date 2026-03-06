@@ -102,6 +102,7 @@ class AuthController extends Controller
             'nombre_completo' => trim($user->nombre . ' ' . $user->apellidos),
             'email' => $user->email,
             'telefono' => $user->telefono,
+            'foto_perfil_url' => $user->foto_perfil_url,
             'is_presente' => (bool) $user->is_presente,
             'rol' => $user->rol?->nombre,
             'horario' => $user->horario?->nombre,

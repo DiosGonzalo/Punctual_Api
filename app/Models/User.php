@@ -11,6 +11,7 @@ use App\Models\Workplace;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -29,12 +30,22 @@ class User extends Authenticatable
         'id_rol',
         'email',
         'telefono',
+        'foto_perfil',
         'id_horario',
         'id_workplace',
         'id_modalidad',
         'id_departamento',
         'is_presente',
         'password',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var list<string>
+     */
+    protected $appends = [
+        'foto_perfil_url',
     ];
 
     /**
@@ -84,5 +95,14 @@ class User extends Authenticatable
     public function departamento()
     {
         return $this->belongsTo(Departamento::class, 'id_departamento');
+    }
+
+    public function getFotoPerfilUrlAttribute(): ?string
+    {
+        if (!$this->foto_perfil) {
+            return null;
+        }
+
+        return Storage::disk('public')->url($this->foto_perfil);
     }
 }

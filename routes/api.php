@@ -53,6 +53,7 @@ Route::get('logs', [LogController::class, 'getAllLogs']);
 
 // POST - Creación pública (SOLO PARA DESARROLLO)
 Route::post('users', [UserController::class, 'store']);
+Route::post('users/{user}/avatar', [UserController::class, 'uploadAvatar']);
 Route::post('modalidades', [ModalidadController::class, 'store']);
 Route::post('horarios', [HorarioController::class, 'store']);
 Route::post('workplaces', [WorkplaceController::class, 'store']);
@@ -73,6 +74,7 @@ Route::put('roles/{role}', [RoleController::class, 'update']);
 
 // DELETE - Eliminación pública (SOLO PARA DESARROLLO)
 Route::delete('users/{user}', [UserController::class, 'destroy']);
+Route::delete('users/{user}/avatar', [UserController::class, 'removeAvatar']);
 Route::delete('modalidades/{modalidade}', [ModalidadController::class, 'destroy']);
 Route::delete('horarios/{horario}', [HorarioController::class, 'destroy']);
 Route::delete('workplaces/{workplace}', [WorkplaceController::class, 'destroy']);
