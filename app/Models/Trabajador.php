@@ -9,6 +9,7 @@ class Trabajador extends Model
 {
     use HasFactory;
 
+    protected $table = 'trabajadores';
     protected $fillable = [
         'nombre',
         'apellidos',

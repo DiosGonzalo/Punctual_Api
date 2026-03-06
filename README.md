@@ -269,3 +269,33 @@ Blueprint creará automáticamente:
 -   Usa **Postman** o **Insomnia** para probar tus endpoints fácilmente.
 
 ---
+
+## 📱 Endpoints para pantallas (Login/Dashboard/Asistencia/Horario/Perfil)
+
+### Autenticación
+
+-   `POST /api/auth/login`
+-   `POST /api/auth/quick-login` (roles: `admin`, `manager`, `employee`)
+-   `GET /api/auth/me` *(auth:sanctum)*
+-   `POST /api/auth/logout` *(auth:sanctum)*
+
+### Dashboard
+
+-   `GET /api/app/dashboard` *(auth:sanctum)*
+
+### Registro de asistencia
+
+-   `GET /api/app/attendance/status` *(auth:sanctum)*
+-   `POST /api/app/attendance/check-in` *(auth:sanctum)*
+-   `POST /api/app/attendance/check-out` *(auth:sanctum)*
+
+### Mi horario
+
+-   `GET /api/app/schedule/week?date=YYYY-MM-DD` *(auth:sanctum)*
+-   `GET /api/app/schedule/month?month=YYYY-MM` *(auth:sanctum)*
+
+### Mi perfil
+
+-   `GET /api/app/profile` *(auth:sanctum)*
+
+---

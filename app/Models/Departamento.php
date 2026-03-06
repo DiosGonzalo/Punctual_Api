@@ -9,6 +9,7 @@ class Departamento extends Model
 {
     use HasFactory;
 
+    protected $table = 'departamentos';
     protected $fillable = ['nombre', 'id_jefe'];
 
     public function jefe()

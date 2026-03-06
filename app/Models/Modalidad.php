@@ -9,5 +9,6 @@ class Modalidad extends Model
 {
     use HasFactory;
 
+    protected $table = 'modalidades';
     protected $fillable = ['nombre'];
 }

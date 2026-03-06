@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -11,12 +12,22 @@ class UserController extends Controller
 {
     public function index()
     {
-        return response()->json(User::all());
+        return response()->json(User::with('horario')->get());
     }
 
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $payload = $request->all();
+
+        if (!array_key_exists('id_horario', $payload)) {
+            if (array_key_exists('horario_id', $payload)) {
+                $payload['id_horario'] = $payload['horario_id'];
+            } elseif (array_key_exists('idHorario', $payload)) {
+                $payload['id_horario'] = $payload['idHorario'];
+            }
+        }
+
+        $data = Validator::make($payload, [
             'nombre' => ['required', 'string', 'max:255'],
             'apellidos' => ['required', 'string', 'max:255'],
             'id_rol' => ['nullable', 'exists:roles,id'],
@@ -28,7 +39,7 @@ class UserController extends Controller
             'id_departamento' => ['nullable', 'exists:departamentos,id'],
             'is_presente' => ['boolean'],
             'password' => ['required', 'string', 'min:8'],
-        ]);
+        ])->validate();
 
         $data['password'] = Hash::make($data['password']);
 
@@ -38,12 +49,23 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        return response()->json($user);
+        return response()->json($user->load('horario'));
     }
 
     public function update(Request $request, User $user)
     {
-        $data = $request->validate([
+        $payload = $request->all();
+
+        // Accept legacy/alternate keys used by different frontends.
+        if (!array_key_exists('id_horario', $payload)) {
+            if (array_key_exists('horario_id', $payload)) {
+                $payload['id_horario'] = $payload['horario_id'];
+            } elseif (array_key_exists('idHorario', $payload)) {
+                $payload['id_horario'] = $payload['idHorario'];
+            }
+        }
+
+        $data = Validator::make($payload, [
             'nombre' => ['sometimes', 'required', 'string', 'max:255'],
             'apellidos' => ['sometimes', 'required', 'string', 'max:255'],
             'id_rol' => ['sometimes', 'nullable', 'exists:roles,id'],
@@ -55,14 +77,14 @@ class UserController extends Controller
             'id_departamento' => ['sometimes', 'nullable', 'exists:departamentos,id'],
             'is_presente' => ['sometimes', 'boolean'],
             'password' => ['sometimes', 'required', 'string', 'min:8'],
-        ]);
+        ])->validate();
 
         if (array_key_exists('password', $data)) {
             $data['password'] = Hash::make($data['password']);
         }
 
         $user->update($data);
-        return response()->json($user);
+        return response()->json($user->load('horario'));
     }
 
     public function destroy(User $user)

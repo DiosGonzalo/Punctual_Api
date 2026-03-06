@@ -9,5 +9,6 @@ class Workplace extends Model
 {
     use HasFactory;
 
+    protected $table = 'workplaces';
     protected $fillable = ['nombre', 'coordenadas'];
 }

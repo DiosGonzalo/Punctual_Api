@@ -9,5 +9,6 @@ class Secuencia extends Model
 {
     use HasFactory;
 
+    protected $table = 'secuencias';
     protected $fillable = ['nombre', 'prefijo', 'valor_actual'];
 }
